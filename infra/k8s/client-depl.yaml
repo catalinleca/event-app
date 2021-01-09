@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-depl
+spec:
+  replicas: 1 # one single pod
+  selector:
+    matchLabels:
+      app: client
+  template: # describes how every pod should be created
+    metadata:
+      labels:
+        app: client # same a s selector
+    spec:
+      containers:
+        - name: client
+          image: catalinleca95/client
+          env:
+            - name: JWT_KEY # key name that we ll access
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret # name of the secret
+                  key: JWT_KEY # key name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-srv
+spec:
+  selector:
+    app: client
+  ports:
+    - name: client
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
