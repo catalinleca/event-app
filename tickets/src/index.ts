@@ -5,13 +5,13 @@ const start = async () => {
     if (!process.env.JWT_KEY) {
         throw new Error('JWT_KEY is required!')
     }
+
     if (!process.env.MONGO_URI) {
-        throw new Error('JWT_KEY is required!')
+        throw new Error('MONGO_URI is required!')
     }
 
     try {
-        await mongoose.connect(
-            process.env.MONGO_URI, {
+        await mongoose.connect(process.env.MONGO_URI, {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
                 useCreateIndex: true
