@@ -15,12 +15,12 @@ spec:
       containers:
         - name: client
           image: catalinleca95/client
-          env:
-            - name: JWT_KEY # key name that we ll access
-              valueFrom:
-                secretKeyRef:
-                  name: jwt-secret # name of the secret
-                  key: JWT_KEY # key name
+#          env:
+#            - name: JWT_KEY # key name that we ll access
+#              valueFrom:
+#                secretKeyRef:
+#                  name: jwt-secret # name of the secret
+#                  key: JWT_KEY # key name
 ---
 apiVersion: v1
 kind: Service
