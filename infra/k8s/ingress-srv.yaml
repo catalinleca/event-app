@@ -14,6 +14,10 @@ spec:
             backend:
               serviceName: auth-srv
               servicePort: 3000
+          - path: /api/tickets/?(.*)
+            backend:
+              serviceName: tickets-srv
+              servicePort: 3000
           - path: /?(.*) # routes order matter, this is more like a catch all
             backend:
               serviceName: client-srv
