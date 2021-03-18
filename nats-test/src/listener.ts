@@ -10,7 +10,7 @@ const stan = nats.connect('ticketing', randomBytes(4).toString('hex'), {
 
 stan.on('connect', () => {
     console.log('Listener connected to nats')
-0
+
     stan.on('close', () => {
         console.log('NATS connection closed');
         process.exit();
