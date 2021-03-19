@@ -7,17 +7,25 @@ const start = async () => {
     if (!process.env.JWT_KEY) {
         throw new Error('JWT_KEY is required!')
     }
-
     if (!process.env.MONGO_URI) {
         throw new Error('MONGO_URI is required!')
     }
+    if (!process.env.NATS_CLUSTER_ID) {
+        throw new Error('NATS_CLUSTER_ID is required!')
+    }
+    if (!process.env.NATS_URL) {
+        throw new Error('NATS_URL is required!')
+    }
+    if (!process.env.NATS_CLIENT_ID) {
+        throw new Error('NATS_CLIENT_ID is required!')
+    }
 
     try {
-        // in nats-deply.yaml at args -> -cid and ticketing
+        // in nats-depl.yaml at args -> -cid and ticketing
         await natsWrapper.connect(
-          'ticketing',
-          randomBytes(4).toString('hex'),
-          'http://nats-srv:4222'
+          process.env.NATS_CLUSTER_ID,
+          process.env.NATS_CLIENT_ID,
+          process.env.NATS_URL
         )
 
         // we could put these in the connect method but we want them in a more central location
