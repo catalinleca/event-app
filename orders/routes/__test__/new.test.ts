@@ -50,3 +50,5 @@ it('reserves a ticket', async () => {
     .send({ticketId: ticket.id})
     .expect(201)
 })
+
+it.todo('emits an order created event')
