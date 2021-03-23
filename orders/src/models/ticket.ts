@@ -3,6 +3,7 @@ import {Order} from "./order";
 import {OrderStatus} from "@cltickets/common";
 
 interface TicketAttrs {
+  id: string;
   title: string;
   price: number;
 }
@@ -37,7 +38,13 @@ const ticketSchema = new mongoose.Schema({
 })
 
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
-  return new Ticket(attrs);
+  // If we create an entry with "id" prop, mongo will ignore it
+  // and also insert "_id" so we just want to override that one
+  return new Ticket({
+    _id: attrs.id,
+    title: attrs.title,
+    price: attrs.price
+  });
 }
 
 // No arrow function!!!
