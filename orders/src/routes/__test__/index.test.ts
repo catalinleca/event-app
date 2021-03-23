@@ -1,9 +1,6 @@
-import {app} from "../../src/app";
+import {app} from "../../app";
 import request from 'supertest';
-import mongoose from "mongoose";
 import {Ticket} from "../../models/ticket";
-import {Order} from "../../models/orders";
-import {OrderStatus} from "@cltickets/common";
 
 const buildTicket = async () => {
   const ticket = Ticket.build({

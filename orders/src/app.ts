@@ -5,10 +5,10 @@ import cookieSession from "cookie-session";
 
 import {errorHandler, NotFoundError, currentUser} from "@cltickets/common";
 
-import {deleteOrderRouter} from "../routes/delete";
-import {newOrderRouter} from "../routes/new";
-import {showOrderRouter} from "../routes/show";
-import {indexOrderRouter} from "../routes";
+import {deleteOrderRouter} from "./routes/delete";
+import {newOrderRouter} from "./routes/new";
+import {showOrderRouter} from "./routes/show";
+import {indexOrderRouter} from "./routes";
 
 
 const app = express();

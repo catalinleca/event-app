@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {Order} from "./orders";
+import {Order} from "./order";
 import {OrderStatus} from "@cltickets/common";
 
 interface TicketAttrs {

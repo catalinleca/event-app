@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import {NotAuthorizedError, NotFoundError, requireAuth} from "@cltickets/common";
-import {Order} from "../models/orders";
+import {Order} from "../models/order";
 
 const router = express.Router();
 
