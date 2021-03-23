@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import { OrderStatus } from '@cltickets/common';
-import {TicketDoc} from "./ticket";
+import mongoose from "mongoose"
+import { OrderStatus } from "@cltickets/common"
+import { TicketDoc } from "./ticket"
 
 interface OrderAttrs {
   userId: string;
@@ -17,7 +17,7 @@ interface OrderDoc extends mongoose.Document {
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
-  build(attrs: OrderAttrs): OrderDoc;
+  build (attrs: OrderAttrs): OrderDoc;
 }
 
 const orderSchema = new mongoose.Schema({
@@ -36,13 +36,13 @@ const orderSchema = new mongoose.Schema({
   },
   ticket: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Ticket'
+    ref: "Ticket"
   }
 }, {
   toJSON: {
-    transform(doc, ret) {
-      ret.id = ret._id;
-      delete ret._id;
+    transform (doc, ret) {
+      ret.id = ret._id
+      delete ret._id
     }
   }
 })
@@ -51,6 +51,6 @@ orderSchema.statics.build = (attrs: OrderAttrs) => {
   return new Order(attrs)
 }
 
-const Order = mongoose.model<OrderDoc, OrderModel>('Orders', orderSchema);
+const Order = mongoose.model<OrderDoc, OrderModel>("Orders", orderSchema)
 
-export { Order };
+export { Order }

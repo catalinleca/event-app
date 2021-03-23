@@ -1,5 +1,5 @@
-import {OrderCreatedEvent, Publisher, Subjects} from "@cltickets/common";
+import { OrderCreatedEvent, Publisher, Subjects } from "@cltickets/common"
 
 export class OrderCreatedPublisher extends Publisher<OrderCreatedEvent> {
-  subject: Subjects.OrderCreated = Subjects.OrderCreated;
+  subject: Subjects.OrderCreated = Subjects.OrderCreated
 }
