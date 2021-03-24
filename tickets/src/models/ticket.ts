@@ -52,7 +52,7 @@ const ticketSchema = new mongoose.Schema(
 ticketSchema.set('versionKey', 'version')
 ticketSchema.plugin(updateIfCurrentPlugin)
 
-ticketSchema.statics.build = (attrs: TicketAttrs) => {
+ticketSchema.statics.build = (attrs: TicketAttrs): TicketDoc => {
     return new Ticket(attrs);
 };
 
