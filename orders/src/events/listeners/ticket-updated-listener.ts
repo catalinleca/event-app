@@ -7,6 +7,8 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
   subject: Subjects.TicketUpdated = Subjects.TicketUpdated;
   queueGroupName = queueGroupName;
 
+  // when Tickets Service emits and updated ticket event we also want to
+  // reflect that change in our Tickets Collection inside the Orders Service
   async onMessage (data: TicketUpdatedEvent["data"], msg: Message) {
     const ticket = await Ticket.findByEvent(data);
 
