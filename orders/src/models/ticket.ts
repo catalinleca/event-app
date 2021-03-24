@@ -1,6 +1,6 @@
-import mongoose from "mongoose"
-import { Order } from "./order"
-import { OrderStatus } from "@cltickets/common"
+import mongoose from "mongoose";
+import { Order } from "./order";
+import { OrderStatus } from "@cltickets/common";
 
 interface TicketAttrs {
   id?: any;
@@ -32,11 +32,11 @@ const ticketSchema = new mongoose.Schema({
 }, {
   toJSON: {
     transform (doc, ret) {
-      ret.id = ret._id
-      delete ret._id
+      ret.id = ret._id;
+      delete ret._id;
     }
   }
-})
+});
 
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
   // If we create an entry with "id" prop, mongo will ignore it
@@ -45,13 +45,14 @@ ticketSchema.statics.build = (attrs: TicketAttrs) => {
     _id: attrs.id,
     title: attrs.title,
     price: attrs.price
-  })
-}
+  });
+};
 
 // No arrow function!!!
-ticketSchema.methods.isReserved = async function () {
+ticketSchema.method("isReserved", async function () {
   // this === the ticket document that it's being called on
   const existingOrder = await Order.findOne({
+    // @ts-ignore
     ticket: this,
     status: {
       $in: [
@@ -60,11 +61,11 @@ ticketSchema.methods.isReserved = async function () {
         OrderStatus.Complete
       ]
     }
-  })
+  });
 
-  return !!existingOrder
-}
+  return !!existingOrder;
+});
 
-const Ticket = mongoose.model<TicketDoc, TicketModel>("Ticket", ticketSchema)
+const Ticket = mongoose.model<TicketDoc, TicketModel>("Ticket", ticketSchema);
 
-export { Ticket }
+export { Ticket };

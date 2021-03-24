@@ -1,6 +1,6 @@
-import mongoose from "mongoose"
-import { OrderStatus } from "@cltickets/common"
-import { TicketDoc } from "./ticket"
+import mongoose from "mongoose";
+import { OrderStatus } from "@cltickets/common";
+import { TicketDoc } from "./ticket";
 
 interface OrderAttrs {
   userId: string;
@@ -41,16 +41,16 @@ const orderSchema = new mongoose.Schema({
 }, {
   toJSON: {
     transform (doc, ret) {
-      ret.id = ret._id
-      delete ret._id
+      ret.id = ret._id;
+      delete ret._id;
     }
   }
-})
+});
 
-orderSchema.statics.build = (attrs: OrderAttrs) => {
-  return new Order(attrs)
-}
+orderSchema.static("build", (attrs: OrderAttrs) => {
+  return new Order(attrs);
+});
 
-const Order = mongoose.model<OrderDoc, OrderModel>("Orders", orderSchema)
+const Order = mongoose.model<OrderDoc, OrderModel>("Orders", orderSchema);
 
-export { Order }
+export { Order };

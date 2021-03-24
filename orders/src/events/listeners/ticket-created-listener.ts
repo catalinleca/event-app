@@ -1,7 +1,7 @@
-import { Listener, Subjects, TicketCreatedEvent } from "@cltickets/common"
-import { Message } from "node-nats-streaming"
-import { queueGroupName } from "./queue-group-name"
-import { Ticket } from "../../models/ticket"
+import { Listener, Subjects, TicketCreatedEvent } from "@cltickets/common";
+import { Message } from "node-nats-streaming";
+import { queueGroupName } from "./queue-group-name";
+import { Ticket } from "../../models/ticket";
 
 export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
   subject: Subjects.TicketCreated = Subjects.TicketCreated
@@ -12,14 +12,14 @@ export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
       id,
       title,
       price
-    } = data
+    } = data;
     const ticket = Ticket.build({
       id,
       title,
       price
-    })
-    await ticket.save()
+    });
+    await ticket.save();
 
-    msg.ack()
+    msg.ack();
   }
 }

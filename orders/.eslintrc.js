@@ -16,6 +16,8 @@ module.exports = {
     "@typescript-eslint"
   ],
   rules: {
-    quotes: [2, "double", { avoidEscape: true }]
+    quotes: [2, "double", { avoidEscape: true }],
+    semi: [2, "always"],
+    "no-unused-vars": "off"
   }
-}
+};

@@ -1,32 +1,32 @@
-import express, { Request, Response } from "express"
-import { NotAuthorizedError, NotFoundError, OrderStatus, requireAuth } from "@cltickets/common"
-import { Order } from "../models/order"
-import { OrderCancelledPublisher } from "../events/publishers/order-cancelled-publisher"
-import { natsWrapper } from "../nats-wrapper"
+import express, { Request, Response } from "express";
+import { NotAuthorizedError, NotFoundError, OrderStatus, requireAuth } from "@cltickets/common";
+import { Order } from "../models/order";
+import { OrderCancelledPublisher } from "../events/publishers/order-cancelled-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
-const router = express.Router()
+const router = express.Router();
 
 router.delete("/api/orders/:orderId", requireAuth, async (req: Request, res: Response) => {
-  const { orderId } = req.params
-  const order = await Order.findById(orderId).populate("ticket")
+  const { orderId } = req.params;
+  const order = await Order.findById(orderId).populate("ticket");
 
   if (!order) {
-    throw new NotFoundError()
+    throw new NotFoundError();
   }
   if (order.userId !== req.currentUser!.id) {
-    throw new NotAuthorizedError()
+    throw new NotAuthorizedError();
   }
-  order.status = OrderStatus.Cancelled
-  await order.save()
+  order.status = OrderStatus.Cancelled;
+  await order.save();
 
   new OrderCancelledPublisher(natsWrapper.client).publish({
     id: order.id,
     ticket: {
       id: order.ticket.id
     }
-  })
+  });
 
-  res.status(204).send(order)
-})
+  res.status(204).send(order);
+});
 
-export { router as deleteOrderRouter }
+export { router as deleteOrderRouter };
