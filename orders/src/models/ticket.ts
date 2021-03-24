@@ -4,7 +4,7 @@ import { OrderStatus } from "@cltickets/common";
 import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface TicketAttrs {
-  id?: any;
+  id: any;
   title: string;
   price: number;
 }
