@@ -4,8 +4,8 @@ import {
   validateRequest,
   NotFoundError,
   requireAuth,
-  NotAuthorizedError,
-} from '@cltickets/common';
+  NotAuthorizedError, BadRequestError,
+} from "@cltickets/common";
 import { Ticket } from '../models/ticket';
 import {TicketUpdatedPublisher} from "../events/publishers/ticket-updated-publisher";
 import {natsWrapper} from "../nats-wrapper";
@@ -30,6 +30,10 @@ router.put(
 
     if (!ticket) {
       throw new NotFoundError();
+    }
+
+    if (ticket.orderId) {
+      throw new BadRequestError("Ticket is reserved")
     }
 
     if (ticket.userId !== req.currentUser!.id) {
