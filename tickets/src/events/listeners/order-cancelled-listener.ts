@@ -21,7 +21,7 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
     await new TicketUpdatedPublisher(this.client).publish({
       id: ticket.id,
       version: ticket.version,
-      title: ticket.title,
+      title: ticket.title.toString(),
       price: ticket.price,
       userId: ticket.userId,
     });

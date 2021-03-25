@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expiration-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: expiration
+  template:
+    metadata:
+      labels:
+        app: expiration
+    spec:
+      containers:
+        - name: expiration
+          image: catalinleca95/expiration
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_CLUSTER_ID
+              value: 'ticketing'
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: REDIS_HOST # specific for redis
+              value: expiration-redis-srv # what we mention in expiration-redis-depl
+---
+# not contacted from anywhere directly so no ClusterIP service
+# We only care about having the expiration pod inside the expiration container
+# and that will communicate through nats streaming server asynchronously
