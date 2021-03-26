@@ -3,8 +3,8 @@
 // pull all changes once every 300 ms
 
 module.exports = {
-  webpackDevMiddleware: config => {
+  webpackDevMiddleware: (config) => {
     config.watchOptions.poll = 300;
     return config;
-  }
-}
+  },
+};
