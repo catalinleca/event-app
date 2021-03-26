@@ -43,7 +43,7 @@ router.post(
       description: "My first charge"
     })
 
-    res.send({ success: true });
+    res.status(201).send({ success: true });
   }
 );
 
