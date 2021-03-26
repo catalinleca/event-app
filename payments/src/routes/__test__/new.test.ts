@@ -3,8 +3,11 @@ import request from "supertest";
 import { OrderStatus } from "@cltickets/common";
 import { app } from "../../app";
 import { Order } from "../../models/order";
-import { stripe } from "../../stripe"; // because we are mocking it
+import { stripe } from "../../stripe";
+import { Payment } from "../../models/payments";
+// because we are mocking it
 // when we the import, because of jest.mocK() we ll get the mocked version
+// jest.mock was removed around lecture 442 for a more real test
 
 it("returns a 404 when purchasing an order that does not exist", async () => {
   await request(app)
@@ -86,10 +89,11 @@ it("returns a 201 with valid inputs", async () => {
 
   expect(stripeCharge).toBeDefined();
   expect(stripeCharge!.currency).toEqual('usd');
-  //
-  // const payment = await Payment.findOne({
-  //   orderId: order.id,
-  //   stripeId: stripeCharge!.id,
-  // });
-  // expect(payment).not.toBeNull();
+
+  const payment = await Payment.findOne({
+    orderId: order.id,
+    stripeId: stripeCharge!.id,
+  });
+  // the payment will either be what we are looking for or null
+  expect(payment).not.toBeNull();
 })
